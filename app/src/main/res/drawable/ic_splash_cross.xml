@@ -1,0 +1,16 @@
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="108dp"
+    android:height="108dp"
+    android:viewportWidth="108"
+    android:viewportHeight="108">
+    <!-- Olive-wood comfort cross: pillowed flares, a long handle, carved centre. -->
+    <path
+        android:fillColor="#8A6A47"
+        android:fillType="nonZero"
+        android:pathData="M67,37 L67,71 A13,13 0 0 1 41,71 L41,37 A13,13 0 0 1 67,37 Z
+            M45,33 L63,33 A13,13 0 0 1 63,59 L45,59 A13,13 0 0 1 45,33 Z
+            M40.5,24 A13.5,13.5 0 1 1 67.5,24 A13.5,13.5 0 1 1 40.5,24 Z
+            M40,84 A14,14 0 1 1 68,84 A14,14 0 1 1 40,84 Z
+            M18.5,46 A13.5,13.5 0 1 1 45.5,46 A13.5,13.5 0 1 1 18.5,46 Z
+            M62.5,46 A13.5,13.5 0 1 1 89.5,46 A13.5,13.5 0 1 1 62.5,46 Z" />
+</vector>
