@@ -29,8 +29,8 @@ prayer.
 
 ## Build
 
-Requires **JDK 17** (the wrapper's Gradle 8.9 does not support newer JDKs) and the Android
-SDK.
+Requires **JDK 17** (Gradle 8.14 / AGP 8.13 do not run on JDK 25) and the Android SDK
+(platform 36).
 
 ```bash
 JAVA_HOME=/path/to/jdk-17 ./gradlew :app:assembleDebug
@@ -42,4 +42,30 @@ A prebuilt debug APK is included in [`dist/`](dist/) and attached to the latest
 
 ## Stack
 
-Gradle 8.9 · AGP 8.5.2 · Kotlin 2.0.21 · Compose · minSdk 26 · compileSdk 34.
+Gradle 8.14.3 · AGP 8.13.2 · Kotlin 2.2.21 · Compose BOM 2025.12.01 · minSdk 26 ·
+compileSdk/targetSdk 36.
+
+## Data coverage & upkeep
+
+The app works fully offline; readings are bundled assets with a fixed date range.
+
+| Asset | Covers | Source |
+|---|---|---|
+| `daily_readings.json` | 2026‑07‑23 → **2030‑11‑30** | dailyLectio.net |
+| `lectionary.json` (Sunday context) | 2023‑01‑01 → **2028‑11‑26** | Vanderbilt PDFs |
+
+Past those dates the app still runs: Today shows a note and links to the readings online,
+and the "this week's Sunday" card is hidden. To extend the daily readings:
+
+```bash
+cd tools/lectionary
+python3 fetch_daily.py 2030-12-01 2031-11-29 new_days.json   # resumable, ~0.4 s/day
+python3 merge_daily.py new_days.json
+```
+
+Vanderbilt had not yet published Year A 2028‑2029 as of 2026‑11; add it when it appears.
+
+**Before a Google Play submission** (planned ~2028): Play then requires a recent
+targetSdk (expect API 37–38), which means moving to AGP 9 / Gradle 9 (and with it a newer
+JDK). Keep `release.jks` + `keystore.properties` backed up somewhere safe — they are
+gitignored, and losing them means installed copies can never be updated.

@@ -21,9 +21,16 @@ fun Observance.gospelReference(): String? {
         ?: gospel.citation
 }
 
-/** The psalm appointed for today in the daily lectionary. */
+private fun String.isPsalmSlot() =
+    equals("Psalm", ignoreCase = true) || equals("Canticle", ignoreCase = true)
+
+/**
+ * The psalm appointed for today in the daily lectionary, or the canticle (e.g. the
+ * Magnificat) appointed in its place on some Advent days.
+ */
 fun DailyEntry.psalmReference(): String? =
     readings.firstOrNull { it.role.equals("Psalm", ignoreCase = true) }?.citation
+        ?: readings.firstOrNull { it.role.equals("Canticle", ignoreCase = true) }?.citation
         ?: readings.firstOrNull {
             ScriptureLinks.forCitation(it.citation)
                 .any { p -> p.reference.startsWith("Psalm", ignoreCase = true) }
@@ -35,4 +42,4 @@ fun DailyEntry.psalmReference(): String? =
  */
 fun DailyEntry.readingReference(): String? =
     readings.firstOrNull { it.role.contains("Gospel", ignoreCase = true) }?.citation
-        ?: readings.lastOrNull { !it.role.equals("Psalm", ignoreCase = true) }?.citation
+        ?: readings.lastOrNull { !it.role.isPsalmSlot() }?.citation
